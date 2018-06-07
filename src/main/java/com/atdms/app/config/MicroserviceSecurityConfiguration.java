@@ -49,23 +49,13 @@ public class MicroserviceSecurityConfiguration extends WebSecurityConfigurerAdap
             .csrf()
             .disable()
             .exceptionHandling()
-            .authenticationEntryPoint(problemSupport)
-            .accessDeniedHandler(problemSupport)
         .and()
             .headers()
             .frameOptions()
             .disable()
         .and()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-            .authorizeRequests()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/swagger-resources/configuration/ui").permitAll()
-        .and()
-            .apply(securityConfigurerAdapter());
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     private JWTConfigurer securityConfigurerAdapter() {
