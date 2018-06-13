@@ -17,6 +17,11 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.io.InputStream;
+import java.util.List;
+import org.json.*;
+// import org.json.simple.JSONArray;
+
 
 /**
  * REST controller for managing Sku.
@@ -88,6 +93,26 @@ public class SkuResource {
         log.debug("REST request to get all Skus");
         return skuRepository.findAll();
         }
+
+
+    /**
+     * GET  /skus/sample : sends all the sample data.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the sample json in body
+     */
+    @GetMapping("/skus/sample")
+    @Timed
+    public String getSampleSkus() {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj = new JSONObject("{ \"sales\": { \"yearToDate\": 2018214.36, \"previousYearToDate\": 1902616.22, \"change\": 6, \"data\": [ ] }, \"volume\": { \"yearToDate\": 2018214.36, \"previousYearToDate\": 1902616.22, \"change\": 6, \"data\": [ ] }, \"brandOverview\": [ { \"style\": { \"name\": \"style1\", \"sku\": \"sku\", \"ytd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 }, \"qtd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 }, \"mtd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 } }, \"brand\": { \"name\": \"brand name\", \"quantity\": 1, \"ytd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 }, \"qtd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 }, \"mtd\": { \"quantity\": 1, \"currentSales\": 1, \"previousSales\": 1, \"percentChange\": 1 } } } ], \"brands\": [ { \"name\": \"brand name\", \"category\": \"category\" } ] } ");
+            // jsonObj.put("aa", "bb");
+            // System.out.println(jsonObj);
+        } catch (JSONException e) {
+            System.out.println(e);
+        }  
+        return jsonObj.toString();
+    }
 
     /**
      * GET  /skus/:id : get the "id" sku.
